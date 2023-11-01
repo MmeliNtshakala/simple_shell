@@ -74,4 +74,4 @@ hsh main.c shell.c test_ls_2
 * Nicholas Upaka <a href="https://github.com/Klausgrey" rel="nofollow"><img align="center" alt="github" src="https://www.vectorlogo.zone/logos/github/github-tile.svg" height="24" /></a>
 <br>
 
-> Project developed during out ALX program.
+> Project developed during our ALX program.
