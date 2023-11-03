@@ -4,64 +4,49 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <sys/types.h>
 #include <errno.h>
-#include <stddef.h>
-#include <sys/stat.h>
-#include <signal.h>
+#include <sys/wait.h>
+#include <string.h>
 
-int _putchar(char charecter);
-void _puts(char *string);
-int string_len(char *s);
-char *_strdup(char *string);
-char *concat_all(char *name, char *sep, char *value);
+#define BUFSIZE 100 /* constant buffer to use in toekn functions*/
+#define DELIM " \t\n" /* delimiters to check */
 
-char **splitstring(char *string, const char *delim);
-void execute(char **argv);
-void *real_alloc(void *ptr, unsigned int old_size, unsigned int new_size);
+/**
+ * struct choose_builtin - Builtin commands struct
+ * @name_builtin: Name of builtin command
+ * @func_builtin: Pointer to builtin command functions
+ */
+typedef struct choose_builtin
+{
+	char *name_builtin;
+	int (*func_builtin)(char **, char *, int *);
+} choose_builtins_t;
 
-
+/* global variable to access the enviromment list */
 extern char **environ;
 
-/**
- * struct list_path - Linked list containing PATH directories
- * @dir: directory in path
- * @p: pointer to next node
- */
-typedef struct list_path
-{
-	char *dir;
-	struct list_path *p;
-} list_path;
+/* execute commands */
+int hsh_execute(char *args[], char *argv[], int *exit_status);
+int hsh_execute_builtins(char *args[], char *input_stdin,
+		char *argv[], int *exit_status);
 
+/* validate inputs */
+char *validate_input(char *args[], char *argv[] __attribute__((unused)));
+int validate_only_spaces(char *input);
 
-char *get_env(const char *name);
-list_path *add_node(list_path **head, char *string);
-list_path *linkpath(char *path);
-char *_which(char *filename, list_path *head);
+/* tokenizers */
+char **hsh_tokenizer(char *input);
+char **tokenizer_path(char *input);
 
-/**
- * struct mybuild - pointer to function with corresponding buildin command
- * @name: buildin command
- * @func: execute the buildin command
- */
-typedef struct mybuild
-{
-	char *name;
-	void (*func)(char **);
-} mybuild;
+/* builtin functions */
+int hsh_cd(char *args[], char *input_stdin, int *exit_status);
+int hsh_setenv(char *args[],  char *input_stdin, int *exit_status);
+int hsh_unsetenv(char **args,  char *input_stdin, int *exit_status);
+int hsh_env(char **args, char *input_stdin, int *exit_status);
+int hsh_exit(char **args, char *input_stdin, int *exit_status);
 
-void(*c_build(char **arv))(char **arv);
-int _atoi(char *s);
-void escaping(char **arv);
-void env(char **arv);
-void _setenv(char **arv);
-void _unsetenv(char **arv);
-
-void free_arv(char **arv);
-void free_list(list_path *head);
-
+/* helper functions*/
+char *str_concat(char *s1, char *s2);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
 #endif
