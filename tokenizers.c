@@ -28,12 +28,12 @@ char **hsh_tokenizer(char *input)
 	/* tokenize the input string, checking for delimiter to split*/
 	/*the string and replace them with \0 */
 	token = strtok(input, DELIM);
-	while (token != NULL)
+	while (token)
 	{
 		/*the array of tokens and the position variable is incremeneted*/
 		tokens[position] = token;
 		position++;
-		/*if position variable is greater than or qual to buffer size, reallocate*/
+		/*if position variable is greater than or equal to buffer size, reallocate*/
 		/*memory for the array of tokens*/
 		if (position >= buffer)
 		{

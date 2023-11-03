@@ -65,7 +65,8 @@ int hsh_execute(char **args, char **argv, int *exit_status)
  * Return: Status to stay or exit the main loop,
  * 1 or 0
  */
-int hsh_execute_builtins(char **args, char *input_stdin, char **argv, int *exit_status)
+int hsh_execute_builtins(char **args, char *input_stdin,
+		char **argv, int *exit_status)
 {
 	int i = 0;
 

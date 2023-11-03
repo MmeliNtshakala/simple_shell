@@ -38,8 +38,6 @@ int main(int argc __attribute__((unused)),
 		}
 		/* split input_stdin string into an array of arguments (tokenize input) */
 		args = hsh_tokenizer(input_stdin);
-		if (*args[0] == '\0') /* if we get only spaces, tabs and line breaks */
-			continue;
 		status_return = hsh_execute_builtins(args, input_stdin, argv, &exit_status);
 		free(input_stdin);
 		free(args);
